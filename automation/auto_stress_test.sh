@@ -12,7 +12,7 @@ export os_type=`uname`
 echo "自动化压测开始"
 
 # 压测并发数列表
-thread_number_array=(10 20 30 40)
+thread_number_array=(10)
 for num in "${thread_number_array[@]}"
 do
     # 生成对应压测线程的jmx文件
@@ -33,10 +33,10 @@ do
     fi
 
     # JMeter 静默压测
-    ${jmeter_path}/bin/jmeter -n -t ${jmx_filename} -l ${jtl_filename}
+    jmeter -n -t ${jmx_filename} -l ${jtl_filename}
 
     # 生成Web压测报告
-    ${jmeter_path}/bin/jmeter -g ${jtl_filename} -e -o ${web_report_path_name}
+    jmeter -g ${jtl_filename} -e -o ${web_report_path_name}
 
     rm -f ${jmx_filename} ${jtl_filename}
 done
